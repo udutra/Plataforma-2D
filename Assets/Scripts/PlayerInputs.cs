@@ -9,5 +9,10 @@ public class PlayerInputs : MonoBehaviour
     private void Update()
     {
         playerController.Move(Input.GetAxisRaw("Horizontal"));
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            playerController.Jump();
+        }
     }
 }
