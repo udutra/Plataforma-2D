@@ -6,10 +6,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private PlayerAnimationsController playerAnimation;
     private Vector2 newMovement;
-    private bool facingRight, jump, grounded , doubleJump;
+    private bool facingRight, jump, grounded , doubleJump, canControl;
 
-    [Header("Dados da velocidade do PLayer")]
+    [Header("Dados da velocidade do Player")]
     [SerializeField]
     private float walkSpeed;
     [SerializeField]
@@ -23,21 +24,33 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         facingRight = true;
+        canControl = true;
         rb = GetComponent<Rigidbody2D>();
+        playerAnimation = GetComponent<PlayerAnimationsController>();
     }
 
     private void Update()
     {
         grounded = Physics2D.OverlapCircle(groundedCheck.position, groundRadius, groundLayer);
 
+        playerAnimation.SetOnGround(grounded);
+
         if (grounded)
         {
             doubleJump = false;
         }
+
+        //Debug.Log(rb.velocity.y);
     }
 
     private void FixedUpdate()
     {
+
+        if (!canControl)
+        {
+            return;
+        }
+
         rb.velocity = newMovement;
 
         if (jump)
@@ -51,6 +64,8 @@ public class PlayerController : MonoBehaviour
                 doubleJump = true;
             }
         }
+
+        playerAnimation.SetVSpeed(rb.velocity.y);
     }
 
     public void Move(float direction)
@@ -59,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
         newMovement = new Vector2(direction * currentSpeed, rb.velocity.y);
 
+        playerAnimation.SetSpeed((int) Mathf.Abs(direction));
         if (facingRight && direction < 0)
         {
             Flip();
@@ -81,5 +97,20 @@ public class PlayerController : MonoBehaviour
         {
             jump = true;
         }
+    }
+
+    public void DisableControls()
+    {
+        canControl = false;
+    }
+
+    public void EnableControls()
+    {
+        canControl = true;
+    }
+
+    public bool GetGrounded()
+    {
+        return grounded;
     }
 }
