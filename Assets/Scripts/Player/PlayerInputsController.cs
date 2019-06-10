@@ -23,12 +23,17 @@ public class PlayerInputsController : MonoBehaviour
             {
                 playerController.Jump();
             }
+            else
+            {
+                playerController.PassThroughPlatform();
+            }
         }
 
         if (Input.GetAxisRaw("Vertical") < 0)
         {
             if (!playerController.GetGrounded())
             {
+                playerAnimation.SetCrouch(false);
                 return;
             }
 
@@ -38,9 +43,14 @@ public class PlayerInputsController : MonoBehaviour
         }
         else if (Input.GetAxisRaw("Vertical") > -1)
         {
+            if (crouched)
+            {
+                crouched = false;
+                playerController.EnableControls();
+            }
+
             playerAnimation.SetCrouch(false);
-            playerController.EnableControls();
-            crouched = false;
+            
         }
     }
 }
