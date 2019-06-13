@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputsController : MonoBehaviour
+public class PlayerInputs : MonoBehaviour
 {
-    private PlayerAnimationsController playerAnimation;
     private bool crouched;
+    private PlayerAnimation playerAnimation;
+    private PlayerAttack playerAttack;
+
     public PlayerController playerController;
 
     private void Awake()
     {
-        playerAnimation = GetComponent<PlayerAnimationsController>();
+        playerAnimation = GetComponent<PlayerAnimation>();
+        playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
@@ -27,6 +30,16 @@ public class PlayerInputsController : MonoBehaviour
             {
                 playerController.PassThroughPlatform();
             }
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            playerAttack.Fire();
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            playerAttack.MeleeAttack();
         }
 
         if (Input.GetAxisRaw("Vertical") < 0)

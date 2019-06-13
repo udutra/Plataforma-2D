@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationsController : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
     private Animator anim;
 
@@ -29,5 +29,10 @@ public class PlayerAnimationsController : MonoBehaviour
     public void SetCrouch(bool state)
     {
         anim.SetBool("Crouch", state);
+    }
+
+    public void SetMeleeAttack()
+    {
+        anim.SetTrigger("Attack");
     }
 }

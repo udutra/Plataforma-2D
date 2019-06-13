@@ -6,8 +6,7 @@ public class PassThroughPlatform : MonoBehaviour
 {
     private int myLayer;
 
-    [SerializeField]
-    private int ignoreLayer;
+    public int ignoreLayer;
 
     private void Start()
     {

@@ -6,16 +6,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private PlayerAnimationsController playerAnimation;
+    private PlayerAnimation playerAnimation;
     private Vector2 newMovement;
     private bool facingRight, jump, grounded , doubleJump, canControl, onIce;
     private PassThroughPlatform platform;
 
     [Header("Dados da velocidade do Player")]
-    [SerializeField]
-    private float walkSpeed;
-    [SerializeField]
-    private float jumpForce;
+    public float walkSpeed;
+    public float jumpForce;
     public float iceForce;
     public float maxSpeed;
 
@@ -26,10 +24,11 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+
         facingRight = true;
         canControl = true;
         rb = GetComponent<Rigidbody2D>();
-        playerAnimation = GetComponent<PlayerAnimationsController>();
+        playerAnimation = GetComponent<PlayerAnimation>();
     }
 
     private void Update()
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
             doubleJump = false;
         }
 
-        //Debug.Log(rb.velocity.y);
+        
     }
 
     private void FixedUpdate()
@@ -109,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        if (grounded || !doubleJump)
+        if (grounded || (!doubleJump && PlayerSkills.instance.skills.Contains(Skills.DoubleJump)))
         {
             jump = true;
         }
@@ -118,10 +117,13 @@ public class PlayerController : MonoBehaviour
     public void DisableControls()
     {
         canControl = false;
+        jump = false;
+        rb.velocity = Vector2.zero;
     }
 
     public void EnableControls()
     {
+        newMovement = Vector2.zero;
         canControl = true;
     }
 
@@ -154,5 +156,10 @@ public class PlayerController : MonoBehaviour
         {
             platform.PassingThrough();
         }
+    }
+
+    public bool IsOnIce()
+    {
+        return onIce;
     }
 }
