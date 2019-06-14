@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1358628859018409637}
   - component: {fileID: 5388618153242086583}
   - component: {fileID: 5038015932777943607}
-  m_Layer: 0
+  - component: {fileID: 679997568148170992}
+  m_Layer: 11
   m_Name: Spitter Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,6 +135,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 5
+--- !u!114 &679997568148170992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7651681417984612373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db91d9f9615b4af45b8f169fdd824b8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  power: 1
 --- !u!1001 &5699982265064645887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 1638675803602792, guid: 942aaaddbf88a404194a6db547be5ba8, type: 3}
       propertyPath: m_Name
       value: SpitGoop
+      objectReference: {fileID: 0}
+    - target: {fileID: 1638675803602792, guid: 942aaaddbf88a404194a6db547be5ba8, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4732601922354972, guid: 942aaaddbf88a404194a6db547be5ba8, type: 3}
       propertyPath: m_LocalPosition.x
