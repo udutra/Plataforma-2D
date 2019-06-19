@@ -8,14 +8,15 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerAnimation playerAnimation;
     private Vector2 newMovement;
-    private bool facingRight, jump, grounded , doubleJump, canControl, onIce;
+    private bool facingRight, jump, grounded , doubleJump, canControl, onIce, pushing;
     private PassThroughPlatform platform;
 
     [Header("Dados da velocidade do Player")]
     public float walkSpeed;
     public float jumpForce;
     public float iceForce;
-    public float maxSpeed;
+    public float maxSpeed; //10
+    public float pushSpeed;
 
     [Header("Dados do Colisor com o chão")]
     public Transform groundedCheck;
@@ -24,7 +25,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-
         facingRight = true;
         canControl = true;
         rb = GetComponent<Rigidbody2D>();
@@ -85,7 +85,15 @@ public class PlayerController : MonoBehaviour
 
     public void Move(float direction)
     {
-        float currentSpeed = walkSpeed;
+        float currentSpeed;
+        if (pushing)
+        {
+            currentSpeed = pushSpeed;
+        }
+        else
+        {
+            currentSpeed = walkSpeed;
+        }
 
         newMovement = new Vector2(direction * currentSpeed, rb.velocity.y);
 
@@ -98,6 +106,11 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
+    }
+
+    public void SetPushing(bool state)
+    {
+        pushing = state;
     }
 
     private void Flip()

@@ -56,6 +56,10 @@ public class Damageable : MonoBehaviour
 
     private void GainControl()
     {
+        if (isDead)
+        {
+            return;
+        }
         ReleaseDamage.Invoke();
     }
 
@@ -102,5 +106,28 @@ public class Damageable : MonoBehaviour
             timer += 0.1f;
         }
         spriteRenderer.color = startColor;
+    }
+
+    public void Respawn()
+    {
+        isDead = false;
+        currentHealth = maxHealth;
+        UIManager.instance.SetLives(currentHealth);
+    }
+
+    public void SetHealth(int amount)
+    {
+        currentHealth += amount;
+        if(currentHealth >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UIManager.instance.SetLives(currentHealth);
+    }
+
+    public void DestroyObject(float time)
+    {
+        Destroy(gameObject, time);
     }
 }

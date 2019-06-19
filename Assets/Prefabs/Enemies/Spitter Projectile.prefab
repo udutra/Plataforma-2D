@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1
+  powerValue: 0
+  duration: 0
+  frameFreezeTime: 0
 --- !u!1001 &5699982265064645887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,6 +209,16 @@ PrefabInstance:
     - target: {fileID: 4732601922354972, guid: 942aaaddbf88a404194a6db547be5ba8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199582267565114788, guid: 942aaaddbf88a404194a6db547be5ba8,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -892973795
+      objectReference: {fileID: 0}
+    - target: {fileID: 199582267565114788, guid: 942aaaddbf88a404194a6db547be5ba8,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 942aaaddbf88a404194a6db547be5ba8, type: 3}

@@ -45,4 +45,14 @@ public class PlayerAnimation : MonoBehaviour
     {
         anim.SetTrigger("Death");
     }
+
+    public void SetGun()
+    {
+        anim.SetBool("Gun", true);
+    }
+
+    public void SetPush(bool state)
+    {
+        anim.SetBool("Push", state);
+    }
 }

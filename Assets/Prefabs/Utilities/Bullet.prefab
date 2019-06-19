@@ -159,6 +159,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1
+  powerValue: 0
+  duration: 0
+  frameFreezeTime: 0
 --- !u!1 &8846733369132435295
 GameObject:
   m_ObjectHideFlags: 0
