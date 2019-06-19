@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 newMovement;
     private bool facingRight, jump, grounded , doubleJump, canControl, onIce, pushing;
     private PassThroughPlatform platform;
+    private AudioManager audioManager;
 
     [Header("Dados da velocidade do Player")]
     public float walkSpeed;
@@ -23,12 +24,17 @@ public class PlayerController : MonoBehaviour
     public float groundRadius;
     public LayerMask groundLayer;
 
+    [Header("Sounds SFX")]
+    public AudioClip jumpSFX;
+    public AudioClip[] footStepSFX;
+
     private void Awake()
     {
         facingRight = true;
         canControl = true;
         rb = GetComponent<Rigidbody2D>();
         playerAnimation = GetComponent<PlayerAnimation>();
+        audioManager = GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -41,8 +47,6 @@ public class PlayerController : MonoBehaviour
         {
             doubleJump = false;
         }
-
-        
     }
 
     private void FixedUpdate()
@@ -123,6 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         if (grounded || (!doubleJump && PlayerSkills.instance.skills.Contains(Skills.DoubleJump)))
         {
+            audioManager.PlayAudio(jumpSFX);
             jump = true;
         }
     }
@@ -174,5 +179,10 @@ public class PlayerController : MonoBehaviour
     public bool IsOnIce()
     {
         return onIce;
+    }
+
+    public void FootSteps()
+    {
+        audioManager.PlayAudio(footStepSFX[Random.Range(0, footStepSFX.Length)]);
     }
 }

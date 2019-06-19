@@ -5,11 +5,28 @@ using UnityEngine;
 public class Pushable : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private AudioSource audioSource;
     public float defaultMass; //25
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent <AudioSource>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (Mathf.Abs(rb.velocity.x) > 0)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

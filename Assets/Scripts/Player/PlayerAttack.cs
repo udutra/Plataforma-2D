@@ -7,6 +7,7 @@ public class PlayerAttack : MonoBehaviour
 {
     private PlayerAnimation playerAnimation;
     private PlayerController playerController;
+    private AudioManager audioManager;
     private bool canAttack;
     private float nextFire;
 
@@ -20,12 +21,18 @@ public class PlayerAttack : MonoBehaviour
     public float attackRate;
     public UnityEvent OnAttack, ReleaseAttack;
 
+    [Header("Sounds SFX")]
+    public AudioClip meleeSfx;
+    public AudioClip ShotSfx;
+
+
     private void Awake()
     {
         //attackRate = 0.5f;
         canAttack = true;
         playerAnimation = GetComponent<PlayerAnimation>();
         playerController = GetComponent<PlayerController>();
+        audioManager = GetComponent<AudioManager>();
     }
 
     public void Fire()
@@ -38,6 +45,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (Time.time > nextFire)
         {
+            audioManager.PlayAudio(ShotSfx);
             nextFire = Time.time + fireRate;
             Rigidbody2D newBullet = Instantiate(bulletPrefab, shotSpawn.position, shotSpawn.rotation);
             newBullet.AddForce(transform.right * shotImpulse, ForceMode2D.Impulse);
@@ -53,6 +61,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (canAttack)
         {
+            audioManager.PlayAudio(meleeSfx);
             canAttack = false;
             OnAttack.Invoke();
             playerAnimation.SetMeleeAttack();
